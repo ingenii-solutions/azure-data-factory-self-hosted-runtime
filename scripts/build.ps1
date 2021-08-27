@@ -7,7 +7,7 @@ Param(
 . "$PSScriptRoot\lib.ps1"
 
 try {
-    Get-FileFromUrl -Uri $RuntimeDownloadUrl -Destination $Workdir
+    Get-FileFromUrl -Url $RuntimeDownloadUrl -Destination $Workdir
 }
 catch {
     Write-Log -Message "Unable to download the runtime installation file from URL: $RuntimeDownloadUrl"
