@@ -92,7 +92,7 @@ function Register-Node {
     if ($EnableHA -eq "True") {
         Write-Log "Enable High Availability"
         Write-Log "Remote Access Port: $($HAPort)"
-        Start-Process $DmgcmdPath -Wait -ArgumentList "-EnableRemoteAccessInContainer", "$($HAPort)" -RedirectStandardOutput $registerOutFile -RedirectStandardError $registerErrFile
+        Start-Process $DmgcmdPath -Wait -ArgumentList "-EnableRemoteAccess", "$($HAPort)" -RedirectStandardOutput $registerOutFile -RedirectStandardError $registerErrFile
         Start-Sleep -Seconds 15
     }
 
