@@ -1,11 +1,12 @@
-
 Param(
     $RuntimeDownloadUrl,
     $Workdir = $(Get-Location)
 )
 
+# Load the library of functions
 . "$PSScriptRoot\lib.ps1"
 
+# Download the runtime
 try {
     Get-FileFromUrl -Url $RuntimeDownloadUrl -Destination $Workdir
 }
@@ -15,6 +16,7 @@ catch {
     exit 1
 }
 
+# Install the runtime
 try {
     Install-Runtime -Workdir $Workdir
 }
@@ -24,5 +26,5 @@ catch {
     exit 1
 }
 
-
+# Clean up the working directory
 Clear-Workdir -Workdir $Workdir
