@@ -1,75 +1,5 @@
-$DmgcmdPath = "C:\Program Files\Microsoft Integration Runtime\5.0\Shared\dmgcmd.exe"
-
-# ---------------------------------------------------------------------------------------------------------------------
-# FUNCTIONS
-# ---------------------------------------------------------------------------------------------------------------------
-function Write-Log() {
-    Param(
-        $Message
-    )
-    Write-Host "[$(Get-Date -Format 'MM/dd/yyyy hh:mm:ss')] $Message"
-}
-
-function Test-Registration() {
-    $result = Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\DataTransfer\DataManagementGateway\ConfigurationManager' -Name HaveRun -ErrorAction SilentlyContinue
-    if (($result -ne $null) -and ($result.HaveRun -eq 'Mdw')) {
-        return $True
-    }
-    return $False
-}
-
-function Test-ProcessRunning() {
-    $ProcessResult = Get-WmiObject Win32_Process -Filter "name = 'diahost.exe'"
-    
-    if ($ProcessResult) {
-        return $True
-    }
-
-    Write-Log "diahost.exe is not running"
-    return $False
-}
-
-
-function Register-Node {
-    Param(
-        $AuthKey,
-        $NodeName,
-        $EnableHA = $True,
-        $HAPort = "8060"
-    )
-
-    $registerOutFile = "register-out.txt"
-    $registerErrFile = "register-error.txt"
-
-    Write-Log "Start registering a new SHIR node"
-
-    if ($EnableHA -eq "True") {
-        Write-Log "Enable High Availability"
-        Write-Log "Remote Access Port: $($HAPort)"
-        Start-Process $DmgcmdPath -Wait -ArgumentList "-EnableRemoteAccessInContainer", "$($HAPort)" -RedirectStandardOutput $registerOutFile -RedirectStandardError $registerErrFile
-        Start-Sleep -Seconds 15
-    }
-
-    if (!$NodeName) {
-        Start-Process $DmgcmdPath -Wait -ArgumentList "-Register-Node", "$($AuthKey)" -RedirectStandardOutput $registerOutFile -RedirectStandardError $registerErrFile
-    }
-    else {
-        Start-Process $DmgcmdPath -Wait -ArgumentList "-Register-Node", "$($AuthKey)", "$($NodeName)" -RedirectStandardOutput $registerOutFile -RedirectStandardError $registerErrFile
-    }
-
-    $StdOutResult = Get-Content $registerOutFile
-    $StdErrResult = Get-Content $registerErrFile
-
-    if ($StdOutResult) {
-        Write-Log "Registration output:"
-        $StdOutResult | ForEach-Object { Write-Log $_ }
-    }
-
-    if ($StdErrResult) {
-        Write-Log "Registration errors:"
-        $StdErrResult | ForEach-Object { Write-Log $_ }
-    }
-}
+# Load the library of functions
+. "$PSScriptRoot\lib.ps1"
 
 # Register SHIR with key from Env Variable: AuthKey
 if (Test-Registration) {
@@ -77,12 +7,8 @@ if (Test-Registration) {
 
     if ($EnableHA -eq "True") {
         Write-Log "Enable High Availability"
-        $PORT = $HAPort
-        if (!$HAPort) {
-            $PORT = "8060"
-        }
-        Write-Log "Remote Access Port: $($PORT)"
-        Start-Process $DmgcmdPath -Wait -ArgumentList "-EnableRemoteAccessInContainer", "$($PORT)"
+        Write-Log "Remote Access Port: $($HAPort)"
+        Start-Process $DmgcmdPath -Wait -ArgumentList "-EnableRemoteAccessInContainer", "$($HAPort)"
         Start-Sleep -Seconds 15
     }
 
