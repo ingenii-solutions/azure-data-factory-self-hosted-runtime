@@ -34,11 +34,11 @@ Start-Sleep -Seconds 60
 
 try {
     $COUNT = 0
-    $IS_REGISTERED = $False
-    while ($True) {
+    $IS_REGISTERED = $false
+    while ($true) {
         if (!$IS_REGISTERED) {
             if (Test-Registration) {
-                $IS_REGISTERED = $True
+                $IS_REGISTERED = $true
                 Write-Log "Self-hosted Integration Runtime is connected to the cloud service"
             }
         }

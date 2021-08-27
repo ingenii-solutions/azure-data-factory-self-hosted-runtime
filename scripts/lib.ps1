@@ -97,10 +97,10 @@ function Register-Node {
     }
 
     if (!$NodeName) {
-        Start-Process $DmgcmdPath -Wait -ArgumentList "-Register-Node", "$($AuthKey)" -RedirectStandardOutput $registerOutFile -RedirectStandardError $registerErrFile
+        Start-Process $DmgcmdPath -Wait -ArgumentList "-RegisterNewNode", "$($AuthKey)" -RedirectStandardOutput $registerOutFile -RedirectStandardError $registerErrFile
     }
     else {
-        Start-Process $DmgcmdPath -Wait -ArgumentList "-Register-Node", "$($AuthKey)", "$($NodeName)" -RedirectStandardOutput $registerOutFile -RedirectStandardError $registerErrFile
+        Start-Process $DmgcmdPath -Wait -ArgumentList "--RegisterNewNode", "$($AuthKey)", "$($NodeName)" -RedirectStandardOutput $registerOutFile -RedirectStandardError $registerErrFile
     }
 
     $StdOutResult = Get-Content $registerOutFile
