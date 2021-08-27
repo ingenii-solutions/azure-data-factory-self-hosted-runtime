@@ -2,7 +2,7 @@ FROM mcr.microsoft.com/windows/servercore:ltsc2019
 
 ENV RuntimeDownloadUrl="https://download.microsoft.com/download/E/4/7/E4771905-1079-445B-8BF9-8A1A075D8A10/IntegrationRuntime_5.9.7894.1.msi"
 
-WORKDIR C:/ingenii
+WORKDIR C:/adf-runtime
 
 COPY scripts .
 
