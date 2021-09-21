@@ -28,7 +28,8 @@ if (Test-NodeRegistration) {
     # The node is already registered.
     Start-Process $dmgCmdPath -Wait -ArgumentList "-Start"
 
-} elseif ($env:AUTH_KEY) {
+}
+elseif ($env:AUTH_KEY) {
     $authKey = $env:AUTH_KEY
 
     Write-Log -Message "Registering the current node with Azure Data Factory..."
@@ -38,7 +39,8 @@ if (Test-NodeRegistration) {
     if ($env:ENABLE_HA -eq "true") {
         if ($env:HA_PORT) {
             $haPort = $env:HA_PORT
-        } else {
+        }
+        else {
             $haPort = "8060"
         }
 
@@ -49,7 +51,8 @@ if (Test-NodeRegistration) {
     
     if ($env:NODE_NAME) {
         $nodeName = $env:NODE_NAME
-    } else {
+    }
+    else {
         $nodeName = $env:COMPUTERNAME
     }
 
@@ -57,11 +60,12 @@ if (Test-NodeRegistration) {
 
     if ($env:OFFLINE_NODE_AUTO_DELETION_TIME_IN_SECONDS) {
         $offlineNodeAutoDeletionTimeInSeconds = $env:OFFLINE_NODE_AUTO_DELETION_TIME_IN_SECONDS
-    } else {
+    }
+    else {
         $offlineNodeAutoDeletionTimeInSeconds = "601"
     }
 
-    Write-Log -Message "Auto Deletion Offline Nodes: In $offlineNodeAutoDeletionTimeInSeconds seconds."
+    Write-Log -Message "Auto Deletion Offline Nodes: In $offlineNodeAutoDeletionTimeInSeconds seconds after they are unreachable."
 
     $registerStdOut = "register-out.txt"
     $registerStdErr = "register-err.txt"
@@ -74,12 +78,12 @@ if (Test-NodeRegistration) {
 
     if ($registerStdOutResult) {
         Write-Log -Message "Registration Output"
-        $registerStdOutResult | ForEach-Object {Write-Log -Message $_ }
+        $registerStdOutResult | ForEach-Object { Write-Log -Message $_ }
     }
 
     if ($registerStdErrResult) {
         Write-Log -Message "Registration Errors"
-        $registerStdErrResult | ForEach-Object {Write-Log -Message $_ }
+        $registerStdErrResult | ForEach-Object { Write-Log -Message $_ }
 
         exit 1
     }
@@ -89,7 +93,8 @@ if (Test-NodeRegistration) {
 
     Write-Log -Message "Registration complete."
 
-} else {
+}
+else {
     Write-Log -Message "AUTH_KEY environment variable is missing." -TextColor Red
     exit 1
 }
@@ -109,7 +114,8 @@ try {
 
         if (Test-NodeProcessRunStatus) {
             $count = 0
-        } else {
+        }
+        else {
             $count += 1
             if ($count -gt 5) {
                 throw "The runtime process (diahost.exe) is not running."
@@ -119,7 +125,8 @@ try {
         Start-Sleep -Seconds 60
     }
 
-} finally {
+}
+finally {
     Write-Log -Message  "Stopping the runtime process..."
     Start-Process $dmgCmdPath -Wait -ArgumentList "-Stop"
     Write-Log -Message  "Stopped."
