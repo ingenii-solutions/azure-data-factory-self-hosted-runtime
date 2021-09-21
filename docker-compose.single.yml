@@ -1,0 +1,10 @@
+version: "3.9"
+
+services:
+
+  adf-self-hosted-runtime:
+    image: $IMAGE_REGISTRY/$IMAGE_REPOSITORY:$IMAGE_VERSION
+    environment:
+        ENABLE_HA: "true"
+        AUTH_KEY: $PRODUCTION_CONNECTION_STRING
+    restart: always

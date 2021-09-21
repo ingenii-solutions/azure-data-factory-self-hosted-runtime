@@ -1,0 +1,11 @@
+# CHANGELOG
+
+## 1.0.0 (2021-09-21)
+
+### Improvements
+
+- [general] - Able to start/stop and deploy ADF self-hosted runtime quickly by using the pre-built image.
+- [general] - High availability works.
+- [general] - Docker compose templates provided.
+- [general] - Readme updated with instructions on how to use this repo.
+- [general] - Offline nodes are set to automatically clean up by default. This is to prevent of hitting the 4 node per runtime limit.
