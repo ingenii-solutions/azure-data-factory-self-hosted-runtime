@@ -4,7 +4,6 @@
 [![License](https://img.shields.io/badge/license%20-MIT-orange?style=flat)](https://github.com/ingenii-solutions/azure-data-factory-self-hosted-runtime/blob/main/LICENSE)
 [![Contributing](https://img.shields.io/badge/howto%20-contribute-blue?style=flat)](https://github.com/ingenii-solutions/azure-data-factory-self-hosted-runtime/blob/main/CONTRIBUTING.md)
 
-
 ## Overview
 
 This is a working solution on how to use Azure Data Factory Self-Hosted Integration Runtime running inside a Windows container.
@@ -36,7 +35,7 @@ You can find a pre-built vesion of the image in our Docker Hub account:
 | ENABLE_HA                                  | `false`              | If you are planning to use multiple containers (nodes) in a single runtime, pleasae set this to true.                                                                     |
 | HA_PORT                                    | `8060`               | The HA port used for communication between the nodes.                                                                                                                     |
 
-## Usage                                                                                                                |
+## Usage
 
 ### Docker Compose (Preferred)
 
