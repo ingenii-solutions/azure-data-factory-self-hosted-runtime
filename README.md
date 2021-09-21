@@ -4,6 +4,32 @@
 [![License](https://img.shields.io/badge/license%20-MIT-orange?style=flat)](https://github.com/ingenii-solutions/azure-data-factory-self-hosted-runtime/blob/main/LICENSE)
 [![Contributing](https://img.shields.io/badge/howto%20-contribute-blue?style=flat)](https://github.com/ingenii-solutions/azure-data-factory-self-hosted-runtime/blob/main/CONTRIBUTING.md)
 
+## Table of Contents
+- [Azure Data Factory - Self-Hosted Integration Runtime Windows Container](#azure-data-factory---self-hosted-integration-runtime-windows-container)
+  - [Table of Contents](#table-of-contents)
+  - [Overview](#overview)
+  - [Version Matrix](#version-matrix)
+  - [Docker Hub](#docker-hub)
+  - [Prerequisites](#prerequisites)
+  - [Environment Variables](#environment-variables)
+  - [Usage](#usage)
+    - [Docker Compose (Preferred)](#docker-compose-preferred)
+      - [Step 1 - Clone this repository](#step-1---clone-this-repository)
+      - [Step 2 - Prepare Environment Variables (env.dist -> .env)](#step-2---prepare-environment-variables-envdist---env)
+      - [Step 3 - Choose your Docker Compose template](#step-3---choose-your-docker-compose-template)
+      - [Step 4 - Run Docker Compose](#step-4---run-docker-compose)
+      - [Helpful Commands](#helpful-commands)
+    - [Docker CLI](#docker-cli)
+      - [Run Only (do not detach)](#run-only-do-not-detach)
+      - [Run and Detach](#run-and-detach)
+  - [Troubleshooting](#troubleshooting)
+    - [Error Code 1847](#error-code-1847)
+      - [Solution](#solution)
+    - [Error Code 1500](#error-code-1500)
+      - [Solution](#solution-1)
+  - [Thanks](#thanks)
+  - [Future Improvements](#future-improvements)
+
 ## Overview
 
 This is a working solution on how to use Azure Data Factory Self-Hosted Integration Runtime running inside a Windows container.
@@ -128,3 +154,7 @@ You most likely have 4 registered nodes with the current runtime. Azure Data Fac
 
 This repository was heavily inspired by what was already done [here](https://github.com/Azure/Azure-Data-Factory-Integration-Runtime-in-Windows-Container) by [@wxygeek](https://github.com/wxygeek)
 
+## Future Improvements
+
+- [ ] Add a Github workflow to automatically build and publish new versions
+- [ ] Add a self-termiantion logic that would automatically terminate the Docker Host instance if running in Azure or AWS. This would help in scenarios where the self-hosted integration runtime is deployed via Azure Functions/Lambda only for a job that is needed and then automatically terminated when no jobs are pending for execution. There isn't any better way of using the Docker image natively in Azure/AWS with the benefit of VNET/VPC integration and keeping the costs low by terminating the instance after every run.
