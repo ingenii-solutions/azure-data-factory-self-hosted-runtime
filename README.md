@@ -26,9 +26,7 @@ You can find a pre-built vesion of the image in our Docker Hub account:
 1. Installation of [Docker CE](https://store.docker.com/search?type=edition&offering=community)
 2. Installation of [git SCM](https://git-scm.com/downloads)
 
-## Usage
-
-### Environment Variables
+## Environment Variables
 
 | Variable                                   | Default              | Description                                                                                                                                                               |
 | ------------------------------------------ | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -37,6 +35,8 @@ You can find a pre-built vesion of the image in our Docker Hub account:
 | OFFLINE_NODE_AUTO_DELETION_TIME_IN_SECONDS | `601` (10 minutes)   | The number of seconds that a node has to be offline to be automatically cleaned up from ADF. (it has to be the same for all nodes in the same runtime)                    |
 | ENABLE_HA                                  | `false`              | If you are planning to use multiple containers (nodes) in a single runtime, pleasae set this to true.                                                                     |
 | HA_PORT                                    | `8060`               | The HA port used for communication between the nodes.                                                                                                                     |
+
+## Usage                                                                                                                |
 
 ### Docker Compose (Preferred)
 
