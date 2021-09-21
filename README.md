@@ -1,30 +1,106 @@
-# azure-data-factory-self-hosted-runtime
-Azure Data Factory - Self Hosted Integration Runtime Windows Container
+# Azure Data Factory - Self-Hosted Integration Runtime Windows Container
 
-## Docker Image Details
-* Registry: ingeniisolutions
-* Repository: adf-self-hosted-integration-runtime
-* Current Version: 1.0.0
+[![Maintainer](https://img.shields.io/badge/maintainer%20-ingenii-orange?style=flat)](https://ingenii.dev/)
+[![License](https://img.shields.io/badge/license%20-MIT-orange?style=flat)](https://github.com/ingenii-solutions/azure-data-factory-self-hosted-runtime/blob/main/LICENSE)
+[![Contributing](https://img.shields.io/badge/howto%20-contribute-blue?style=flat)](https://github.com/ingenii-solutions/azure-data-factory-self-hosted-runtime/blob/main/CONTRIBUTING.md)
+
+
+## Overview
+
+This is a working solution on how to use Azure Data Factory Self-Hosted Integration Runtime running inside a Windows container.
+
+## Version Matrix
+
+| Image Version  | ADF Self-Hosted Runtime Version |
+| -------------- | ------------------------------- |
+| 1.0.0 (latest) | 5.10.7918.2                     |
+
+## Docker Hub
+
+You can find a pre-built vesion of the image in our Docker Hub account:
+
+[Ingenii Solutions](https://hub.docker.com/r/ingeniisolutions/adf-self-hosted-integration-runtime/tags)
 
 ## Prerequisites
 
 1. Installation of [Docker CE](https://store.docker.com/search?type=edition&offering=community)
-1. Installation of [git SCM](https://git-scm.com/downloads)
-1. Windows: to mimic Linux functionality, the programs [Make](http://gnuwin32.sourceforge.net/packages/make.htm) and [sed](http://gnuwin32.sourceforge.net/packages/sed.htm)
-    1. Download and install the setup programs from the links above
-    1. Next, we need to add the new `make` binary to your PATH environment variable.
-        1. In Windows 10, go to `Settings > Edit environment variables for your account`
-        1. If you want to change for just your account, you'll want to edit `Path` in the `User variables . . .` box; if for all accounts, edit in the `System variables` box
-        1. Choose the `Path` variable, and click `Edit`.
-        1. Click `New` and add the full path to the `bin` folder in the `GnuWin32` folder. If you installed in the default location, this is `C:\Program Files (x86)\GnuWin32\bin`
-        1. For the changes to take effect, you need to restart or create a new `cmd` window or your IDE
+2. Installation of [git SCM](https://git-scm.com/downloads)
 
-## Set up
+## Usage
 
-1. Complete the 'Getting Started > Prerequisites' section
-1. Run `make setup` to copy `.env-dist` > `.env` and populate with values from the `Docker Image Details` section above
+### Environment Variables
 
-## Commands
+| Variable                                   | Default              | Description                                                                                                                                                               |
+| ------------------------------------------ | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| AUTH_KEY                                   | No (Required)        | The [ADF authentication key](https://docs.microsoft.com/en-us/azure/data-factory/create-self-hosted-integration-runtime?tabs=data-factory#create-a-self-hosted-ir-via-ui) |
+| NODE_NAME                                  | `container hostname` | The name of the node that will be displayed in ADF.                                                                                                                       |
+| OFFLINE_NODE_AUTO_DELETION_TIME_IN_SECONDS | `601` (10 minutes)   | The number of seconds that a node has to be offline to be automatically cleaned up from ADF. (it has to be the same for all nodes in the same runtime)                    |
+| ENABLE_HA                                  | `false`              | If you are planning to use multiple containers (nodes) in a single runtime, pleasae set this to true.                                                                     |
+| HA_PORT                                    | `8060`               | The HA port used for communication between the nodes.                                                                                                                     |
 
-1. `make build`
-1. `make push`
+### Docker Compose (Preferred)
+
+#### Step 1 - Clone this repository
+
+```shell
+git clone https://github.com/ingenii-solutions/azure-data-factory-self-hosted-runtime.git
+```
+
+#### Step 2 - Prepare Environment Variables (env.dist -> .env)
+
+```shell
+cp .env.dist .env
+```
+
+Add your Azure Data Factory Authentication Keys (connection strings) to each variable:
+
+```shell
+# Azure Data Factory Connection Strings
+PRODUCTION_CONNECTION_STRING="<add prod auth key here>"
+TEST_CONNECTION_STRING="<add test auth key here>" # Optional
+DEV_CONNECTION_STRING="<add dev auth key here>" # Optional
+```
+
+#### Step 3 - Choose your Docker Compose template
+
+We have the following templates available:
+
+| Template            | Filename                  | Descripton                                                                            |
+| ------------------- | ------------------------- | ------------------------------------------------------------------------------------- |
+| Single              | docker-compose.single.yml | Single container deployment. Needs only the `PRODUCTION_CONNECTION_STRING` to be set. |
+| Dev,Test,Prod (DTP) | docker-compose.dtp.yml    | Multi-environment deployment. Needs all connection string variables set.              |
+
+#### Step 4 - Run Docker Compose
+
+```shell
+docker-compose -f docker-compose.<template>.yml -d
+```
+
+You can monitor the status of the container(s) by using `docker-compose ps` command.
+
+#### Helpful Commands
+
+* `docker-compose -f <filename> logs` - View output from containers
+* `docker-compose -f <filename> restart` - Restart containers
+* `docker-compose -f <filename> down` - Stop and remove resources
+
+### Docker CLI
+
+You can also use the docker cli directly to start the container. Here are some examples:
+
+#### Run Only (do not detach)
+
+```shell
+docker run -e AUTH_KEY="IR@xxx" -e ENABLE_HA=true ingeniisolutions/adf-self-hosted-integration-runtime
+```
+
+#### Run and Detach
+
+```shell
+docker run -d -e AUTH_KEY="IR@xxx" -e ENABLE_HA=true ingeniisolutions/adf-self-hosted-integration-runtime
+```
+
+## Thanks
+
+This repository was heavily inspired by what was already done [here](https://github.com/Azure/Azure-Data-Factory-Integration-Runtime-in-Windows-Container) by [@wxygeek](https://github.com/wxygeek)
+
