@@ -101,6 +101,29 @@ docker run -e AUTH_KEY="IR@xxx" -e ENABLE_HA=true ingeniisolutions/adf-self-host
 docker run -d -e AUTH_KEY="IR@xxx" -e ENABLE_HA=true ingeniisolutions/adf-self-hosted-integration-runtime
 ```
 
+## Troubleshooting
+
+### Error Code 1847
+
+```shell
+A service error occurred (StatusCode: 400; ErrorCode: 1847; ActivityId: 7c596324-5649-4859-aedc-c700611339df; ErrorMessage: OfflineNodeAutoDeletionTimeInSeconds should be same among the SHIR nodes and it should be 601.).    
+```
+
+#### Solution
+
+All nodes in a runtime have to have the same value for `OFFLINE_NODE_AUTO_DELETION_TIME_IN_SECONDS` enviornment variable.
+Also, if you are to have more than one node, you need to set ENABLE_HA to `true`.
+
+### Error Code 1500
+
+```shell
+ A service error occurred (StatusCode: 400; ErrorCode: 1500; ActivityId: 54ed9ef2-cedd-4e9c-93b4-650ee527e862; ErrorMessage: Exception of type 'Microsoft.DataTransfer.GatewayService.Client.GatewayServiceException' was thrown.)
+```
+
+#### Solution
+
+You most likely have 4 registered nodes with the current runtime. Azure Data Factory supports only 4 registered nodes per integration runtime.
+
 ## Thanks
 
 This repository was heavily inspired by what was already done [here](https://github.com/Azure/Azure-Data-Factory-Integration-Runtime-in-Windows-Container) by [@wxygeek](https://github.com/wxygeek)
