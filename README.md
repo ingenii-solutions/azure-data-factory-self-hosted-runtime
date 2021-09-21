@@ -27,6 +27,8 @@ You can find a pre-built vesion of the image in our Docker Hub account:
 
 ## Environment Variables
 
+Below are the environment variables the image understands.
+
 | Variable                                   | Default              | Description                                                                                                                                                               |
 | ------------------------------------------ | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | AUTH_KEY                                   | No (Required)        | The [ADF authentication key](https://docs.microsoft.com/en-us/azure/data-factory/create-self-hosted-integration-runtime?tabs=data-factory#create-a-self-hosted-ir-via-ui) |
