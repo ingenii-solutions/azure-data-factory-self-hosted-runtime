@@ -3,12 +3,9 @@ Param(
     $Workdir = $(Get-Location)
 )
 
-# Load the library of functions
-. "$PSScriptRoot\lib.ps1"
-
 # Download the runtime
 try {
-    Get-FileFromUrl -Url $RuntimeDownloadUrl -Destination $Workdir
+    Start-BitsTransfer -Source $RuntimeDownloadUrl -Destination $Workdir
 }
 catch {
     Write-Log -Message "Unable to download the runtime installation file from URL: $RuntimeDownloadUrl"
@@ -18,7 +15,18 @@ catch {
 
 # Install the runtime
 try {
-    Install-Runtime -Workdir $Workdir
+    Write-Log -Message "Installing the ADF Self-Hosted Integration Runtime..."
+
+    $MsiFileName = (Get-ChildItem -Path $Workdir | Where-Object { $_.Name -Match "IntegrationRuntime.*.msi" })[0].Name
+    Write-Log -Message $MsiFileName
+
+    Start-Process msiexec.exe -Wait -ArgumentList "/i $MsiFileName /qn"
+    if (!$?) {
+        Write-Log -Message "Installation failed."
+        exit 1
+    }
+
+    Write-Log -Message "Installaton complete."
 }
 catch {
     Write-Log -Message "Unable to install the runtime."
@@ -27,4 +35,4 @@ catch {
 }
 
 # Clean up the working directory
-Clear-Workdir -Workdir $Workdir
+Get-ChildItem $Workdir | Where-Object { $_.Name -Match "IntegrationRuntime.*.msi" } | Remove-Item -Force
