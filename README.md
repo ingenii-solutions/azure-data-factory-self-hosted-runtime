@@ -100,7 +100,7 @@ We have the following templates available:
 #### Step 4 - Run Docker Compose
 
 ```shell
-docker-compose -f docker-compose.<template>.yml -d
+docker-compose -f docker-compose.<template>.yml up -d
 ```
 
 You can monitor the status of the container(s) by using `docker-compose ps` command.
