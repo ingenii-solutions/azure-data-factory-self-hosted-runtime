@@ -36,9 +36,10 @@ This is a working solution on how to use Azure Data Factory Self-Hosted Integrat
 
 ## Version Matrix
 
-| Image Version  | ADF Self-Hosted Runtime Version |
-| -------------- | ------------------------------- |
-| 1.0.0 (latest) | 5.10.7918.2                     |
+| Image Version  | ADF Self-Hosted Runtime Version | Bundled Drivers |
+| -------------- | ------------------------------- | --------------- |
+| 1.0.0          | 5.10.7918.2                     | N/A             |
+| 1.0.1 (latest) | 5.12.7984.1                     |                 |
 
 ## Docker Hub
 
