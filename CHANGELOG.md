@@ -1,10 +1,11 @@
 # CHANGELOG
 
-## 1.0.1 (2021-11-22)
+## 1.0.1 (2021-11-24)
 
 ### Improvements
 
 - [general] - Updating the ADF Runtime to v5.12.7984.1
+- [drivers] - Adding IBM DB2 ODBC Driver (v5.11.4)
 
 
 ## 1.0.0 (2021-09-21)
