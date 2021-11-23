@@ -8,3 +8,4 @@ services:
         ENABLE_HA: "true"
         AUTH_KEY: $PRODUCTION_CONNECTION_STRING
     restart: always
+    isolation: process

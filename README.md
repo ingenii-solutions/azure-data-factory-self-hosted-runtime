@@ -27,6 +27,8 @@
       - [Solution](#solution)
     - [Error Code 1500](#error-code-1500)
       - [Solution](#solution-1)
+    - [Error SQLSTATE IM004, SQLAllocHandle on SQL_HANDLE_ENV](#error-sqlstate-im004-sqlallochandle-on-sql_handle_env)
+      - [Solution](#solution-2)
   - [Thanks](#thanks)
   - [Future Improvements](#future-improvements)
 
@@ -36,13 +38,14 @@ This is a working solution on how to use Azure Data Factory Self-Hosted Integrat
 
 ## Version Matrix
 
-| Image Version  | ADF Self-Hosted Runtime Version |
-| -------------- | ------------------------------- |
-| 1.0.0 (latest) | 5.10.7918.2                     |
+| Image Version  | ADF Self-Hosted Runtime Version | Bundled Drivers            |
+| -------------- | ------------------------------- | -------------------------- |
+| 1.0.0          | 5.10.7918.2                     | N/A                        |
+| 1.0.1 (latest) | 5.12.7984.1                     | IBM DB2 ODBC Driver 5.11.4 |
 
 ## Docker Hub
 
-You can find a pre-built vesion of the image in our Docker Hub account:
+You can find a pre-built version of the image in our Docker Hub account:
 
 [Ingenii Solutions](https://hub.docker.com/r/ingeniisolutions/adf-self-hosted-integration-runtime/tags)
 
@@ -60,7 +63,7 @@ Below are the environment variables the image understands.
 | AUTH_KEY                                   | No (Required)        | The [ADF authentication key](https://docs.microsoft.com/en-us/azure/data-factory/create-self-hosted-integration-runtime?tabs=data-factory#create-a-self-hosted-ir-via-ui) |
 | NODE_NAME                                  | `container hostname` | The name of the node that will be displayed in ADF.                                                                                                                       |
 | OFFLINE_NODE_AUTO_DELETION_TIME_IN_SECONDS | `601` (10 minutes)   | The number of seconds that a node has to be offline to be automatically cleaned up from ADF. (it has to be the same for all nodes in the same runtime)                    |
-| ENABLE_HA                                  | `false`              | If you are planning to use multiple containers (nodes) in a single runtime, pleasae set this to true.                                                                     |
+| ENABLE_HA                                  | `false`              | If you are planning to use multiple containers (nodes) in a single runtime, please set this to true.                                                                     |
 | HA_PORT                                    | `8060`               | The HA port used for communication between the nodes.                                                                                                                     |
 
 ## Usage
@@ -149,6 +152,19 @@ Also, if you are to have more than one node, you need to set ENABLE_HA to `true`
 #### Solution
 
 You most likely have 4 registered nodes with the current runtime. Azure Data Factory supports only 4 registered nodes per integration runtime.
+
+### Error SQLSTATE IM004, SQLAllocHandle on SQL_HANDLE_ENV
+
+Applies to: IBM DB2 ODBC Driver Only
+
+The error is generated whenever the docker image is executed with [isolation mode](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/hyperv-container) set to `hyperv` and not `process`.  
+This typically occurs on Windows Desktop OS as that defaults to isolated: hyperv mode and Windows Server OS defaults to isolated: process mode. 
+
+#### Solution
+
+If you are going to be using IBM DB2 ODBC Driver, it is highly suggested to run the image inside Windows Server 2019 or above. [Isolation mode](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/hyperv-container) should be set to `process`.
+
+
 
 ## Thanks
 
