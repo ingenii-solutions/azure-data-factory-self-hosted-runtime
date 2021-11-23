@@ -20,6 +20,7 @@ try {
     Write-Log -Message "Installing the ADF Self-Hosted Integration Runtime..."
 
     $MsiFileName = (Get-ChildItem -Path $Workdir | Where-Object { $_.Name -Match "IntegrationRuntime.*.msi" })[0].Name
+    
     Write-Log -Message $MsiFileName
 
     Start-Process msiexec.exe -Wait -ArgumentList "/i $MsiFileName /qn"

@@ -8,6 +8,7 @@ services:
         ENABLE_HA: "true"
         AUTH_KEY: $PRODUCTION_CONNECTION_STRING
     restart: always
+    isolation: process
 
   test:
     image: $IMAGE_REGISTRY/$IMAGE_REPOSITORY:$IMAGE_VERSION
@@ -15,6 +16,7 @@ services:
         ENABLE_HA: "true"
         AUTH_KEY: $TEST_CONNECTION_STRING
     restart: always
+    isolation: process
 
   dev:
     image: $IMAGE_REGISTRY/$IMAGE_REPOSITORY:$IMAGE_VERSION
@@ -22,3 +24,4 @@ services:
         ENABLE_HA: "true"
         AUTH_KEY: $DEV_CONNECTION_STRING
     restart: always
+    isolation: process

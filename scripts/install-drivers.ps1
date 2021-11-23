@@ -18,6 +18,4 @@ ForEach ($script in $DriverInstallScripts) {
     &$script.FullName
 }
 
-rm -force -recurse c:\programdata\ibm
-
 Write-Log -Message "Additional drivers installed."
