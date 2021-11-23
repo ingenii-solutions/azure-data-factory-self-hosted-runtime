@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/windows/servercore:ltsc2019
+FROM mcr.microsoft.com/windows/servercore:20H2
 
 LABEL maintainer="Ingeii"
 
@@ -8,7 +8,11 @@ WORKDIR "C:/adf-runtime"
 
 COPY scripts .
 
-RUN ["powershell", "./build.ps1", "-RuntimeDownloadUrl $env:RUNTIME_DOWNLOAD_URL"]
+COPY drivers ./drivers
+
+RUN ["powershell", "./install-runtime.ps1", "-RuntimeDownloadUrl $env:RUNTIME_DOWNLOAD_URL"]
+
+RUN ["powershell", "./install-drivers.ps1"]
 
 CMD ["powershell", "./entrypoint.ps1"]
 

@@ -1,0 +1,89 @@
+* Sample response file for IBM CLI ODBC Client
+* -------------------------------------------------------------------------
+
+*To select features and settings to install, uncomment the corresponding keywords
+*and specify values for those keywords. You do not need to select features for the
+*TYPICAL or COMPACT installation options.
+
+*Comments are made by placing either an asterisk (*) or a number sign (#) at the start of a line, or by
+*placing ** or ## after the start of a line to comment out the rest of that line.
+
+*All keywords that are currently uncommented (i.e. not preceded by *) are mandatory and must be 
+*specified in order for the installation to continue. All other keywords are optional. If optional keywords are
+*not specified, the installation will proceed using default values.
+
+*============================================================================
+
+* General Options
+* ---------------
+PROD                 = IBM_DATA_SERVER_DRIVER
+LIC_AGREEMENT        = DECLINE   **You must change this to ACCEPT to indicate your acceptance of the license agreement before continuing.
+FILE                 = C:\Program Files\IBM\IBM DATA SERVER DRIVER 
+** FILE determines the base install path.  If you specify a path that does not
+** yet have this product, this will install a new copy.  If you specify a path
+** that does not have this product, this will be considered an "existing"
+** install intended to install additional functionality.  This is an optional
+** keyword. 
+
+*Select Features
+*---------------------------------------------
+*Select the features that you want to install by uncommenting the corresponding COMP keywords. 
+*COMP                          = ODBC_SUPPORT
+
+** Copy Name
+** ---------
+** The copy name is the identifier used to refer to a single instance of an 
+** installation of IBM database products.  You can also choose to use this copy 
+** as the default IBM database client interface copy. If so, the IBM database 
+** client interface (ODBC/CLI driver and .Net data provider) in the copy is as 
+** the default drivers used by applications. 
+*COPY_NAME    = IBMDBCL                          ** char(64)
+*DEFAULT_CLIENT_INTERFACE_COPY = NO              ** YES or NO. Default is NO unless this is the only copy installed.
+
+** Migrate catalog to xml
+** ---------------------
+** Specify whether you want to create a catalog configuration file from the 
+** existing DB2 default copy. The configuration file is used by the IBM Data
+** Server Driver Package to connect to a supported database. Specifying this
+** keyword creates a configuration file containing the contents of the local
+** database directory, node directory, and DCS directory of a specific database 
+** manager instance.
+*MIGRATE_CATALOG_TO_XML   = FALSE              ** FALSE or TRUE
+
+** Common Application Data Top Path
+** --------------------------------
+** The keyword DB2_COMMON_APP_DATA_TOP_PATH can be used to specify the
+** customized top directory of common application data path under which the sub
+** directory IBM\\DB2\\\<COPY_NAME\> will be created to hold the common
+** application data specific to the installation copy. \<COPY_NAME\> is the
+** copy name for the current installation. If the keyword is not used, the
+** default common application data path will be used. This keyword is valid
+** only for the first time installation in a location which has no previously
+** installed products.
+*DB2_COMMON_APP_DATA_TOP_PATH =             ** a full path
+
+
+** DSDRIVER file configuration through install(input from the user)
+** ----------------------------------------------------------------
+
+** The DB2DSDRIVER_CFG_SOURCE_PATH keyword identifies the location of a 
+** customized db2dsdriver.cfg file provided by the user. Applicable for silent install only.
+*DB2DSDRIVER_CFG_SOURCE_PATH =              ** a full file path
+
+** The DB2_ODBC_DSN_TYPE keyword identifies the type of DSN to be
+** registered. Applicable for silent install only.
+*DB2_ODBC_DSN_TYPE        =                 ** USER,SYSTEM or BOTH
+
+** The DB2_ODBC_DSN_ACTION keyword specifies whether to add or replace DSNs during registration. Applicable for silent install only.
+*DB2_ODBC_DSN_ACTION      =                 ** ADD OR REPLACE
+
+
+** Copy the Optim Performance Manager Extended Insight (OPM EI) library files during installation
+** ----------------------------------------------------------------------------------------------
+
+** This keyword will take the path of the OPM EI bulk deploy root directory as input. 
+** When provided with the path, the installer will copy the files from java directory 
+** to DSDRIVER installation directory where jcc(db2jcc4.jar) libraries are present 
+** and all non-java library contents from the respective platform directory to DSDRIVER
+** installation directory where cli libraries ( db2app.dll ) are present.  
+*EI_BULK_DEPLOY_ROOT_DIRECTORY =            **location of the OPM EI bulk deploy root directory 
