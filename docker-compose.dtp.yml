@@ -9,6 +9,11 @@ services:
         AUTH_KEY: $PRODUCTION_CONNECTION_STRING
     restart: always
     isolation: process
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
+        tag: production
 
   test:
     image: $IMAGE_REGISTRY/$IMAGE_REPOSITORY:$IMAGE_VERSION
@@ -17,6 +22,11 @@ services:
         AUTH_KEY: $TEST_CONNECTION_STRING
     restart: always
     isolation: process
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
+        tag: test
 
   dev:
     image: $IMAGE_REGISTRY/$IMAGE_REPOSITORY:$IMAGE_VERSION
@@ -25,3 +35,18 @@ services:
         AUTH_KEY: $DEV_CONNECTION_STRING
     restart: always
     isolation: process
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
+        tag: dev
+  
+  logging:
+    image: fluent/fluentd:v1.14-windows-20H2-1
+    command: ["-c", "c:\\fluent\\conf\\fluentd.conf"]
+    ports:
+      - "24224:24224"
+      - "24224:24224/udp"
+    volumes:
+      - ./fluentd:C:\fluent\conf
+      - ./logs:C:\fluent\log
