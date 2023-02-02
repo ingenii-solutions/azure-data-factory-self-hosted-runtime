@@ -1,8 +1,8 @@
 FROM mcr.microsoft.com/windows/servercore:ltsc2019
 
-LABEL maintainer="Ingeii"
+LABEL maintainer="Ingenii"
 
-ENV RUNTIME_DOWNLOAD_URL="https://go.microsoft.com/fwlink/?linkid=839822&clcid=0x409"
+ENV RUNTIME_DOWNLOAD_URL="https://download.microsoft.com/download/E/4/7/E4771905-1079-445B-8BF9-8A1A075D8A10/IntegrationRuntime_5.24.8369.1.msi"
 
 WORKDIR "C:/adf-runtime"
 
