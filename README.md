@@ -41,7 +41,8 @@ This is a working solution on how to use Azure Data Factory Self-Hosted Integrat
 | Image Version  | ADF Self-Hosted Runtime Version | Bundled Drivers            |
 | -------------- | ------------------------------- | -------------------------- |
 | 1.0.0          | 5.10.7918.2                     | N/A                        |
-| 1.0.1 (latest) | 5.12.7984.1                     | IBM DB2 ODBC Driver 5.11.4 |
+| 1.0.1          | 5.12.7984.1                     | IBM DB2 ODBC Driver 5.11.4 |
+| 1.0.2 (latest) | 5.24.8369.1                     | IBM DB2 ODBC Driver 5.11.4 |
 
 ## Docker Hub
 

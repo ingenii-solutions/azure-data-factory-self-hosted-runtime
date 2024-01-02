@@ -5,6 +5,8 @@ function Test-NodeConnection() {
         [string]$DmgCmdPath
     )
 
+    Write-Log -Message "Attempting healthcheck..."
+
     $tempFileName = "healthcheck.txt"
 
     Start-Process $DmgCmdPath -Wait -ArgumentList "-CheckGatewayConnected" -RedirectStandardOutput $tempFileName
@@ -14,6 +16,7 @@ function Test-NodeConnection() {
     if ($result -like "Connected") {
         return $true
     } else {
+        Write-Log -Message "Failed health check: $result"
         exit 1
     }
 }
