@@ -15,7 +15,7 @@
   - [Usage](#usage)
     - [Docker Compose (Preferred)](#docker-compose-preferred)
       - [Step 1 - Clone this repository](#step-1---clone-this-repository)
-      - [Step 2 - Prepare Environment Variables (env.dist -> .env)](#step-2---prepare-environment-variables-envdist---env)
+      - [Step 2 - Prepare Environment Variables (env.dist -\> .env)](#step-2---prepare-environment-variables-envdist---env)
       - [Step 3 - Choose your Docker Compose template](#step-3---choose-your-docker-compose-template)
       - [Step 4 - Run Docker Compose](#step-4---run-docker-compose)
       - [Helpful Commands](#helpful-commands)
@@ -27,7 +27,7 @@
       - [Solution](#solution)
     - [Error Code 1500](#error-code-1500)
       - [Solution](#solution-1)
-    - [Error SQLSTATE IM004, SQLAllocHandle on SQL_HANDLE_ENV](#error-sqlstate-im004-sqlallochandle-on-sql_handle_env)
+    - [Error SQLSTATE IM004, SQLAllocHandle on SQL\_HANDLE\_ENV](#error-sqlstate-im004-sqlallochandle-on-sql_handle_env)
       - [Solution](#solution-2)
   - [Thanks](#thanks)
   - [Future Improvements](#future-improvements)
@@ -42,7 +42,8 @@ This is a working solution on how to use Azure Data Factory Self-Hosted Integrat
 | -------------- | ------------------------------- | -------------------------- |
 | 1.0.0          | 5.10.7918.2                     | N/A                        |
 | 1.0.1          | 5.12.7984.1                     | IBM DB2 ODBC Driver 5.11.4 |
-| 1.0.2 (latest) | 5.24.8369.1                     | IBM DB2 ODBC Driver 5.11.4 |
+| 1.0.2          | 5.24.8369.1                     | IBM DB2 ODBC Driver 5.11.4 |
+| 1.0.3 (latest) | 5.36.8726.3                     | IBM DB2 ODBC Driver 5.11.4 |
 
 ## Docker Hub
 
