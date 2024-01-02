@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## 1.0.3 (2024-01-02)
+
+### Improvements
+
+- [general] - Updating the ADF Runtime to v5.36.8726.3
+
+
+## 1.0.2 (2023-02-02)
+
+### Improvements
+
+- [general] - Updating the ADF Runtime to v5.24.8369.1
+
+
 ## 1.0.1 (2021-11-24)
 
 ### Improvements
